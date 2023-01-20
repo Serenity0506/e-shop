@@ -1,0 +1,19 @@
+.footer_link {
+    margin: 5px 0 0 0;
+    color: black;
+    font-style: normal;
+    text-decoration: none;
+}
+
+
+@media screen and (max-width: 767px) {
+    .footer_link {
+        font-size: 15px;
+        margin-bottom: 5px;
+
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .footer_link {}
+}
