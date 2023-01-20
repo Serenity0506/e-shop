@@ -19,16 +19,14 @@ const initialValue = {
 
 export const Signup = () => {
 
-    const submitHandler = (values) => {
-            console.log(values)
-    }
-
     return (
         <>
             <Formik
                 initialValues={initialValue}
                 validationSchema={createSigninValidationSchema}
-                onSubmit={submitHandler}
+                onSubmit={(values) => {
+                    console.log(values)
+            }}
             >
             {() => (
             <Form className='form'>
