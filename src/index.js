@@ -13,16 +13,15 @@ import { Signin } from './components/Signin/Signin';
 
 
 
-
-
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
       {
+        index: true,
         path: 'main',
-        element: <Main />
+        element: <Main />,
       },
 
       {
