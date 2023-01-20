@@ -51,7 +51,9 @@ const router = createBrowserRouter([
       }
     ]
   }
-])
+],
+  { basename: "/e-shop" }
+)
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
