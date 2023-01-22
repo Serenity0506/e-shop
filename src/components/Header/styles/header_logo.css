@@ -19,3 +19,7 @@
 .header_logo:last-child {
     margin-right: 0;
 }
+
+.header_logo:hover {
+    cursor: pointer;
+}
