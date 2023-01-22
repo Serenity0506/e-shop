@@ -18,7 +18,7 @@ export const Header = () => {
     return (
         <div className="header">
             <div className="header_left">
-                <Link to='/main'>
+                <Link to='/'>
                   <img className='header_logo' src={logo} alt="logo" />
                 </Link>
                 <h1 className='header_title'>DogFood</h1>

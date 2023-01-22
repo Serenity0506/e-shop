@@ -8,3 +8,7 @@
     padding: 5px;
     margin-top: 10px;
 }
+
+.form_button:hover {
+    cursor: pointer;
+}
