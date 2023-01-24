@@ -1,11 +1,12 @@
-import './styles/main.css';
+import './styles/main.css'
+import { Products } from '../Products/Products'
 
 export const Main = () => {
-
-    return (
+  return (
         <div className='main'>
-            <header>The magic is coming...</header>
-            <p>Welcome to the shop</p>
+            <Products />
+            {/* <header>The magic is coming...</header>
+            <p>Welcome to the shop</p> */}
         </div>
-    )
+  )
 }

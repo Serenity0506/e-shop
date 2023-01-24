@@ -8,7 +8,9 @@ import '../global_styles/form_button-reg.css';
 import '../global_styles/form_button.css';
 import '../global_styles/form_text.css';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { dogFoodApi } from '../Api/Api/DogFoodApi';
 
 
 
@@ -18,17 +20,25 @@ const initialValue = {
     password: '',
 }
 
+export function SignIn() {
+    const navigate = useNavigate()
+  
+    const { mutateAsync, isLoading } = useMutation({
+      mutationFn: (data) => dogFoodApi.signIn()})
 
-export const Signin = () => {
+      const submitHandler = async (values) => {
+        const response = await mutateAsync(values)
+        const { data: resData, token } = response
+        console.log({ resData }, { token })
+        navigate('/')
+      }
 
     return (
         <>
             <Formik
                 initialValues={initialValue}
                 validationSchema={createSigninValidationSchema}
-                onSubmit={(values) => {
-                    console.log(values)
-            }}
+                onSubmit={submitHandler}
             >
             {() => (
             <Form className='form'>
@@ -51,7 +61,14 @@ export const Signin = () => {
     )
 }
 
+// const SighinWithQuery = withQuery()
+// function SignIn() {
+//     const { token, setToken } = useContext(AppContext)
 
+//     const { mutateAsync, isError, error,} = useMutation({
+//         mutation
+//     }) }
+// }
 
 // export const Signin1 = () => {
 
