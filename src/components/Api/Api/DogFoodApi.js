@@ -66,8 +66,8 @@ class DogFoodApi {
 
         const res = await fetch(`${this.baseUrl}/products`, {
             headers: {
-                // authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2NmYjRmMDU5Yjk4YjAzOGY3N2FhOWEiLCJncm91cCI6InNtOSIsImlhdCI6MTY3NDU1NjcyNCwiZXhwIjoxNzA2MDkyNzI0fQ.wddeTXXHn6Q_YqChsYAmJJ9Jzk5pKgkZ62O_WiM9A1U',
-                authorization: this.getAuthorizationHeader(),
+                authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2NmYjRmMDU5Yjk4YjAzOGY3N2FhOWEiLCJncm91cCI6InNtOSIsImlhdCI6MTY3NDU1NjcyNCwiZXhwIjoxNzA2MDkyNzI0fQ.wddeTXXHn6Q_YqChsYAmJJ9Jzk5pKgkZ62O_WiM9A1U',
+                // authorization: this.getAuthorizationHeader(),
             },
         });
 
@@ -83,21 +83,6 @@ class DogFoodApi {
 
         return res.json()
     }
-
-    async getProductById(productId) {
-        this.checkToken();
-
-        const res = await fetch(`${this.baseUrl}/products/${productId}`, {
-            headers: {
-                authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2NmYjRmMDU5Yjk4YjAzOGY3N2FhOWEiLCJncm91cCI6InNtOSIsImlhdCI6MTY3NDU1NjcyNCwiZXhwIjoxNzA2MDkyNzI0fQ.wddeTXXHn6Q_YqChsYAmJJ9Jzk5pKgkZ62O_WiM9A1U',
-            },
-        });
-    }
-
-    async getProductsByIds() {
-
-    }
-
 }
 
 export const dogFoodApi = new DogFoodApi({ baseUrl: 'https://api.react-learning.ru' });

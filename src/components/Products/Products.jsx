@@ -3,7 +3,7 @@ import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../Context/AppContextProvider";
 import { dogFoodApi } from "../Api/Api/DogFoodApi";
-import ProductContainer from "./ProductContainer";
+// import ProductContainer from "./ProductContainer";
 
 import ProductsStyles from './Products.module.css';
 
@@ -13,13 +13,15 @@ export const Products = () => {
   const navigate = useNavigate()
   console.log( { token }  )
 
-    useEffect(() => {
-      if (!token) {
-      navigate('/signin')
-      }
-  }, [token]);
+  useEffect(() => {
+    if (!token) {
+      navigate("/signin");
+    }
+  }, [token])
 
-  const { data, isLoading, isError, error, refetch } = useQuery({
+  // const { data, isError, error } = useQuery({
+    const { isError, error } = useQuery({
+
     queryKey: ["productsfetch"],
     queryFn: () => dogFoodApi.getAllProducts(),
     enabled: (token !== undefined) && (token !== ''),
@@ -38,17 +40,7 @@ export const Products = () => {
   )
 
     return (
-      <div className={ProductsStyles.products}>
-        <h1 className={ProductsStyles.header}>Все товары</h1>
-        <div className={ProductsStyles.container}>
-          {data.products.map((product) => (
-            <ProductContainer
-              key={data.id}
-              product={product}
-            />
-          ))}
-        </div>
-      </div>
+      <h1>Goods</h1>
     )
 }
 
@@ -69,3 +61,15 @@ export default Products
 
 //     return <h1 className='main'>Каталог</h1>
 // }
+
+{/* <div className={ProductsStyles.products}>
+<h1 className={ProductsStyles.header}>Все товары</h1>
+<div className={ProductsStyles.container}>
+</div>
+</div> */}
+//          {data.products.map((product) => (
+//   <ProductContainer
+//   key={data.id}
+//   product={product}
+// />
+// ))}

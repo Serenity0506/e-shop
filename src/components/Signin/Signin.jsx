@@ -23,7 +23,7 @@ const initialValue = {
 export function SignIn() {
     const navigate = useNavigate()
   
-    const { mutateAsync, isLoading } = useMutation({
+    const { mutateAsync } = useMutation({
       mutationFn: (data) => dogFoodApi.signIn()})
 
       const submitHandler = async (values) => {

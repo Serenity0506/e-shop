@@ -22,7 +22,7 @@ const initialValue = {
 export function SignUp() {
     const navigate = useNavigate()
   
-    const { mutateAsync, isLoading } = useMutation({
+    const { mutateAsync } = useMutation({
       mutationFn: (data) => dogFoodApi.signUp(data)})
 
 
