@@ -24,7 +24,7 @@ export function SignIn() {
     const navigate = useNavigate()
   
     const { mutateAsync } = useMutation({
-      mutationFn: (data) => dogFoodApi.signIn()})
+      mutationFn: (data) => dogFoodApi.signIn(data)})
 
       const submitHandler = async (values) => {
         const response = await mutateAsync(values)

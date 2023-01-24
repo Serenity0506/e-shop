@@ -19,8 +19,8 @@ export function AppContextProvider( { children } ) {
     }, [token]);
 
     return (
-        <AppContextProvider value={{ token, setToken }}>
+        <AppContext.Provider value={{ token, setToken }}>
             { children }
-        </AppContextProvider>
+        </AppContext.Provider>
     );
 }
