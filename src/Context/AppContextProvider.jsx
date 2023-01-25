@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useContext } from "react";
 import { useState } from "react";
 import { createContext } from "react";
 import { dogFoodApi } from "../components/Api/Api/DogFoodApi";
@@ -24,3 +25,5 @@ export function AppContextProvider( { children } ) {
         </AppContext.Provider>
     );
 }
+
+export const useAppContext = () => useContext(AppContext) //кастомный хук

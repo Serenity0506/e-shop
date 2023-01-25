@@ -8,8 +8,8 @@ import { Products } from './components/Products/Products';
 import { Sales } from './components/Sales/Sales';
 import { Payment } from './components/Payment/Payment';
 import { Main } from './components/Main/Main';
-import { SignIn } from './components/SignIn/SignIn'
-import { SignUp } from './components/SignUp/SignUp'
+import { SignIn } from './components/Sign/SignIn/SignIn';
+import { SignUp } from './components/Sign/SignUp/SignUp';
 import { AppContextProvider } from './Context/AppContextProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 

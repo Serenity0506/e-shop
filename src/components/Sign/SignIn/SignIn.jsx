@@ -1,18 +1,12 @@
 // import { Formik, Form, Field, ErrorMessage} from 'formic';
 import { createSigninValidationSchema } from './validator_in';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import '../global_styles/form.css';
-import '../global_styles/form_error.css';
-import '../global_styles/form_input.css';
-import '../global_styles/form_button-reg.css';
-import '../global_styles/form_button.css';
-import '../global_styles/form_text.css';
-
 import { Link, useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { dogFoodApi } from '../Api/Api/DogFoodApi';
+import { dogFoodApi } from '../../Api/Api/DogFoodApi';
+import { useAppContext } from '../../../Context/AppContextProvider';
 
-
+import styles from '../Form.module.css';
 
 const initialValue = {
     email: '',
@@ -22,6 +16,8 @@ const initialValue = {
 
 export function SignIn() {
     const navigate = useNavigate()
+
+    const { setToken } = useAppContext()
   
     const { mutateAsync } = useMutation({
       mutationFn: (data) => dogFoodApi.signIn(data)})
@@ -29,8 +25,11 @@ export function SignIn() {
       const submitHandler = async (values) => {
         const response = await mutateAsync(values)
         const { data: resData, token } = response
-        console.log({ resData }, { token })
-        navigate('/')
+        console.log({ resData, token })
+        setToken(token)
+        setTimeout(() => { //обновление состояния в реакте синхронная операция,поэтому сет навгейт сработает после утсановки токена
+            navigate('/products')
+        })
       }
 
     return (
@@ -41,18 +40,18 @@ export function SignIn() {
                 onSubmit={submitHandler}
             >
             {() => (
-            <Form className='form'>
-                <Field className='form_input' name="email" type="email" placeholder='email here' />
-                <ErrorMessage className='form_error' name="email" />
+            <Form className={styles.form}>
+                <Field className={styles.form_input} name="email" type="email" placeholder='email here' />
+                <ErrorMessage className={styles.form_error} name="email" />
                 
-                <Field className='form_input'  name="password" type="password" placeholder='password here' />
-                <ErrorMessage className='form_error' name="password" />   
+                <Field className={styles.form_input}  name="password" type="password" placeholder='password here' />
+                <ErrorMessage className={styles.form_error} name="password" />   
 
-                <button className='form_button' type='submit'>Войти</button>    
+                <button className={styles.form_button} type='submit'>Войти</button>    
                 
-                <p className='form_text'>Новый пользователь? Вам сюда &darr;</p>  
+                <p className={styles.form_text}>Новый пользователь? Вам сюда &darr;</p>  
                 <Link to='/signup'>
-                    <button className='form_button-reg' type='submit'>Регистрация</button>      
+                    <button className={styles.form_button_reg} type='submit'>Регистрация</button>      
                 </Link>
             </Form>
             )}

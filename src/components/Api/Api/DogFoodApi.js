@@ -13,7 +13,7 @@ class DogFoodApi {
     }
 
     checkToken() {
-        if (this.token) throw new Error('Отсутствует токен');
+        if (!this.token) throw new Error('Отсутствует токен');
     }
 
     async signIn(values) {
@@ -66,8 +66,8 @@ class DogFoodApi {
 
         const res = await fetch(`${this.baseUrl}/products`, {
             headers: {
-                authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2NmYjRmMDU5Yjk4YjAzOGY3N2FhOWEiLCJncm91cCI6InNtOSIsImlhdCI6MTY3NDU1NjcyNCwiZXhwIjoxNzA2MDkyNzI0fQ.wddeTXXHn6Q_YqChsYAmJJ9Jzk5pKgkZ62O_WiM9A1U',
-                // authorization: this.getAuthorizationHeader(),
+                // authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2NmYjRmMDU5Yjk4YjAzOGY3N2FhOWEiLCJncm91cCI6InNtOSIsImlhdCI6MTY3NDU1NjcyNCwiZXhwIjoxNzA2MDkyNzI0fQ.wddeTXXHn6Q_YqChsYAmJJ9Jzk5pKgkZ62O_WiM9A1U',
+                authorization: this.getAuthorizationHeader(),
             },
         });
 

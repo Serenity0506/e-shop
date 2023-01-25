@@ -1,14 +1,31 @@
 .container {
     display: flex;
     flex-direction: column;
-    width: 180px;
-    gap: 15px;
-    background-color: rgba(180, 151, 231, 0.9);
+    padding: 10px;
+    width: 200px;
+    gap: 10px;
+    background-color: rgba(180, 151, 231, 0.3);
+    border-radius: 10px;
     color: black;
+    margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
+.price {
+    color: rgb(61, 34, 108);
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.wight {
+    font-style: italic;
 }
 
 .picture {
-    width: 100%;
+    width: auto;
 }
 
 .button {
@@ -19,5 +36,6 @@
     min-width: 150px;
     min-height: 30px;
     padding: 5px;
-    margin-top: 10px;
+    margin-top: 5px;
+    font-size: 15px;
 }

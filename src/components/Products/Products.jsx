@@ -1,15 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../../Context/AppContextProvider";
+import { useAppContext } from "../../Context/AppContextProvider";
 import { dogFoodApi } from "../Api/Api/DogFoodApi";
-// import ProductContainer from "./ProductContainer";
+import { Loader } from "../Loader/Loader";
+import ProductContainer from "./ProductContainer";
 
-import ProductsStyles from './Products.module.css';
+import styles from './Products.module.css';
 
 
-export const Products = () => {
-  const { token } = useContext(AppContext)
+export const Products = ({items}) => {
+  const { token } = useAppContext()
   const navigate = useNavigate()
   console.log( { token }  )
 
@@ -17,59 +18,50 @@ export const Products = () => {
     if (!token) {
       navigate("/signin");
     }
+    // eslint-disable-next-line 
   }, [token])
 
-  // const { data, isError, error } = useQuery({
-    const { isError, error } = useQuery({
+    const {data, isLoading, isError, error } = useQuery({
 
     queryKey: ["productsfetch"],
     queryFn: () => dogFoodApi.getAllProducts(),
     enabled: (token !== undefined) && (token !== ''),
   })  
 
+  console.log(items)
 
-  if (isError)
+  if (isError) {
+    return (
+      <p>Error: {error.message}</p>
+    )
+  }
+
+  if (isLoading) return <Loader />
+
   return (
-    <div className={ProductsStyles.products}>
-      <h1>Product Page</h1>
-      <p>
-        Произошла ошибка:&nbps;
-        {error}
-      </p>
+    <div className={styles.products}>
+      {data.products.map(({ _id: id, ...restProduct }) => (
+        <ProductContainer
+          key={id}
+          id={id}
+          product={restProduct}
+        />
+      ))}
     </div>
   )
-
-    return (
-      <h1>Goods</h1>
-    )
 }
+
 
 export default Products
 
 
-
-
-//   const [product, setProduct] = useState([]);ProductCard
-//   const addNewProduct = (title) => {
-//     const newProduct = {
-//       id: crypto.randomUUID(),
-//       title: title
-//     }
-
-//     setProduct((prev) => [newProduct, ...prev])
-//   }
-
-//     return <h1 className='main'>Каталог</h1>
-// }
-
-{/* <div className={ProductsStyles.products}>
-<h1 className={ProductsStyles.header}>Все товары</h1>
-<div className={ProductsStyles.container}>
-</div>
+{/* <div className={ProductsStyles.errorMessage}>
+<p>{error.message}</p>
+<button onClick={refetch} type="button">
+  Повторить запрос
+</button>
 </div> */}
-//          {data.products.map((product) => (
-//   <ProductContainer
-//   key={data.id}
-//   product={product}
-// />
-// ))}
+
+
+        // // if (!items.products.length) return <p>Ошибка</p>
+
