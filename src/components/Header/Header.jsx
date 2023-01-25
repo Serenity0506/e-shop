@@ -9,12 +9,38 @@ import briefcase from './images/briefcase.png';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../../Context/AppContextProvider';
 
+const MenuBar = (props) => {
+
+    if(!props.token) {
+        return (
+            <Link to='/signin'>
+                <button className={styles.header_button}>
+                    <img className={styles.header_logo} src={user} alt="user" />
+                </button>
+            </Link>
+        )
+    }
+
+    return (
+        <>
+            <button className={styles.header_button}>
+                <img className={styles.header_logo} src={heart} alt="like" />
+            </button>
+            <button className={styles.header_button}>
+                <img className={styles.header_logo} src={briefcase} alt="like" />
+            </button>
+            <Link onClick={() => props.setToken('')}>
+                <button className={styles.header_button}>
+                    <img className={styles.logout_logo} src={logout} alt="logout" />
+                </button>
+            </Link>
+        </>
+    )
+}
+
 export const Header = () => {
 
-    const { setToken } = useAppContext()
-    function signOutHandler() {
-        setToken('');
-    }
+    const { token, setToken } = useAppContext()
 
     return (
         <div className={styles.header}>
@@ -33,24 +59,8 @@ export const Header = () => {
           />     
 
           <div className={styles.header_left}>    
-            <button className={styles.header_button}>
-                <img className={styles.header_logo} src={heart} alt="like" />
-            </button>
-            <button className={styles.header_button}>
-                <img className={styles.header_logo} src={briefcase} alt="like" />
-            </button>
-            <Link to='/signin'>
-                    <button className={styles.header_button}>
-                        <img className={styles.header_logo} src={user} alt="user" />
-                    </button>
-            </Link>
-            <Link onClick={signOutHandler}>
-                <button className={styles.header_button}>
-                        <img className={styles.logout_logo} src={logout} alt="logout" />
-                    </button>
-            </Link>
+            <MenuBar token={token} setToken={setToken} />
            </div>
-
         </div>
     )
 }

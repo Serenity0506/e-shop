@@ -59,17 +59,3 @@ export function SignIn() {
         </>
     )
 }
-
-// const SighinWithQuery = withQuery()
-// function SignIn() {
-//     const { token, setToken } = useContext(AppContext)
-
-//     const { mutateAsync, isError, error,} = useMutation({
-//         mutation
-//     }) }
-// }
-
-// export const Signin1 = () => {
-
-//     return<h1 className='footer_link'>Sighin</h1>
-// }

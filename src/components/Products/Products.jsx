@@ -53,15 +53,3 @@ export const Products = ({items}) => {
 
 
 export default Products
-
-
-{/* <div className={ProductsStyles.errorMessage}>
-<p>{error.message}</p>
-<button onClick={refetch} type="button">
-  Повторить запрос
-</button>
-</div> */}
-
-
-        // // if (!items.products.length) return <p>Ошибка</p>
-

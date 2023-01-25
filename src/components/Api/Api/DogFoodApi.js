@@ -4,6 +4,10 @@ class DogFoodApi {
         this.token = '';
     }
 
+    _sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     getAuthorizationHeader() {
         return `Bearer ${this.token}`;
     }
@@ -80,6 +84,8 @@ class DogFoodApi {
             throw new Error(`Произошла ошибка при получении ответа от сервера. 
           Попробуйте сделать запрос позже. Status: ${res.status}`)
         }
+
+        await this._sleep(1_000);
 
         return res.json()
     }
