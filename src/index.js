@@ -12,6 +12,7 @@ import { SignIn } from './components/Sign/SignIn/SignIn';
 import { SignUp } from './components/Sign/SignUp/SignUp';
 import { AppContextProvider } from './Context/AppContextProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Cart } from './components/Cart/Cart';
 
 
 
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: 'signin',
         element: <SignIn />
+      },
+      {
+        path: 'cart',
+        element: <Cart />
       }
     ]
   }

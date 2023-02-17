@@ -1,0 +1,2 @@
+export const ESHOP_LS_KEY = 'DOGFOOD_LS_KEY'
+export const ESHOP_CARD_LS_KEY = 'DOGFOOD_CARD_LS_KEY'
