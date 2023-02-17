@@ -53,8 +53,8 @@ export const CartInside = (cart, clearCart) => {
   }
 
     return (
-        <main className={styles.cart}>
+        <div className={styles.cart}>
             {!cart.length ? empty() : full()}
-        </main>
+        </div>
     )
 }
