@@ -102,6 +102,10 @@
     background-color: transparent;
 }
 
+.header_cart_wrapper {
+    position: relative;
+}
+
 .header_cartCount {
     position: absolute;
     min-width: 15px;

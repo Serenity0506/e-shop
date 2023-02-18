@@ -38,4 +38,9 @@ p {
     padding: 5px;
     margin-top: 5px;
     font-size: 15px;
+    cursor: pointer;
+}
+
+.button_in_cart {
+    background-color: rgb(99, 195, 30);
 }

@@ -1,0 +1,43 @@
+li {
+    list-style-type: none;
+}
+
+.item_container {
+    display: grid;
+    grid-template-columns: 30px 100px 1fr 1fr 1fr 30px;
+    align-items: center;
+}
+
+.item_counter {}
+
+.item_image img {
+    width: 100px;
+}
+
+.item_descr {}
+
+.item_checkbox {}
+
+.item_remove {
+    cursor: pointer;
+}
+
+.counter_container {
+    display: flex;
+    flex-direction: row;
+    user-select: none;
+}
+
+.counter_button {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.counter_button_disabled {
+    color: darkgray;
+    pointer-events: none;
+}
+
+.counter_value {
+    padding: 5px 10px;
+}

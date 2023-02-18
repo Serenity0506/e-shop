@@ -13,6 +13,8 @@ import { SignUp } from './components/Sign/SignUp/SignUp';
 import { AppContextProvider } from './Context/AppContextProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Cart } from './components/Cart/Cart';
+import { store } from './components/redux/store';
+import { Provider } from 'react-redux';
 
 
 
@@ -65,10 +67,14 @@ const queryClient = new QueryClient(
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AppContextProvider>
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
-    </AppContextProvider>
+    <Provider store={store}>
+      <AppContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </AppContextProvider>
+    </Provider>
   </React.StrictMode>
 );
+
+

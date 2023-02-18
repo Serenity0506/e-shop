@@ -1,4 +1,4 @@
-import { ESHOP_CARD_LS_KEY } from './constants'
+import { ESHOP_LS_KEY } from './constants'
 
 export const initState = {
     user: {
@@ -13,7 +13,10 @@ export const initState = {
 }
 
 export const getInitState = () => {
-    const dataFromLS = window.localStorage.getItem(ESHOP_CARD_LS_KEY)
+    const dataFromLS = window.localStorage.getItem(ESHOP_LS_KEY)
 
     return dataFromLS ? JSON.parse(dataFromLS) : initState
 }
+
+export const resetState = () =>
+    window.localStorage.setItem(ESHOP_LS_KEY, null)

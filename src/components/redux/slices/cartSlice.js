@@ -6,23 +6,27 @@ const cartSlice = createSlice({
     name: 'cart',
     initialState: initState.cart,
     reducers: {
-        addCardProduct(state, action) {
+        addProduct(state, action) {
+            const id = action.payload;
+
+            if (state.some(i => i.id === id)) return;
+
             state.push({
                 id: action.payload,
                 count: 1,
-                isCheked: false,
+                isChecked: false,
             });
         },
 
-        removeCardProduct(state, action) {
+        removeProduct(state, action) {
             return state.filter((product) => product.id !== action.payload);
         },
 
-        deleteCardProduct(state, action) {
+        deleteProduct(state, action) {
             delete state[action.payload]
         },
 
-        setCheckProduct(state, action) {
+        checkProduct(state, action) {
             return state.map((product) => {
                 if (product.id === action.payload) {
                     return {
@@ -35,7 +39,7 @@ const cartSlice = createSlice({
         },
 
 
-        setUnCheckProduct(state, action) {
+        uncheckProduct(state, action) {
             return state.map((product) => {
                 if (product.id === action.payload) {
                     return {
@@ -47,13 +51,37 @@ const cartSlice = createSlice({
             });
         },
 
+        incrementCount(state, action) {
+            state.map((product) => {
+                if (product.id === action.payload) {
+                    return {
+                        ...product,
+                        count: product.count++,
+                    };
+                }
+                return product;
+            })
+        },
+
+        decrementCount(state, action) {
+            state.map((product) => {
+                if (product.id === action.payload) {
+                    return {
+                        ...product,
+                        count: product.count--,
+                    };
+                }
+                return product;
+            })
+        },
+
         checkAllProducts(state, action) {
             action.payload.forEach((id) => {
                 state[id].isChecked = true
             })
         },
 
-        unCheckAllProducts(state, action) {
+        uncheckAllProducts(state, action) {
             action.payload.forEach((id) => {
                 state[id].isChecked = false
             })
@@ -67,13 +95,14 @@ const cartSlice = createSlice({
 
 
 export const {
-    addCardProduct,
-    removeCardProduct,
-    deleteCardProduct,
-    setCheckProduct,
-    setUnCheckProduct,
+    addProduct,
+    removeProduct,
+    checkProduct,
+    uncheckProduct,
     checkAllProducts,
-    unCheckAllProducts,
+    uncheckAllProducts,
+    incrementCount,
+    decrementCount,
     clearCart
 } = cartSlice.actions;
 

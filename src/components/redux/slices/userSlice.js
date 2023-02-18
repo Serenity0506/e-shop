@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initState } from "../initState";
+import { resetState, initState } from "../initState";
 
 const userSlice = createSlice({
     name: 'user', //уникальное имя среза
-    initialState: initState.user,
+    initialState: initState.user, //вытаскиваем 
     //ниже действия, которые происходят внутри среза
     reducers: {
-        addNewUser: {
+        //мы передаем объект, который берет значения из препаре, в logIn
+        logIn: {
             reducer(state, action) {
                 if (state.email !== action.payload.email) return action.payload
             },
@@ -18,8 +19,12 @@ const userSlice = createSlice({
                 }
             },
         },
+        // logIn() {
+
+        // },
 
         logOut() {
+            resetState()
             return initState.user
         },
     },
@@ -30,7 +35,7 @@ const userSlice = createSlice({
 export const getUserSelector = (state) => state.user
 export const getTokenSelector = (state) => state.user.token
 
-export const { addNewUser, logOut } = userSlice.actions
+export const { logIn, logOut } = userSlice.actions
 export const userReducer = userSlice.reducer
 //payload - это объект новый, который создается
 //в момент вызова этой фции через диспатч

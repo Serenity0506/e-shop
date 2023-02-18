@@ -1,18 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useAppContext } from "../../Context/AppContextProvider";
 import { dogFoodApi } from "../Api/Api/DogFoodApi";
 import { Loader } from "../Loader/Loader";
+import { getCartSelector } from "../redux/slices/cartSlice";
+import { getSearchSelector } from "../redux/slices/filterSlice";
+import { getTokenSelector } from "../redux/slices/userSlice";
 import ProductContainer from "./ProductContainer";
 
 import styles from './Products.module.css';
 
 
-export const Products = ({items}) => {
-  const { token } = useAppContext()
+export const Products = () => {
   const navigate = useNavigate()
-  console.log( { token }  )
+  const token = useSelector(getTokenSelector)
+  const searchFilter = useSelector(getSearchSelector)
+  const cart = useSelector(getCartSelector)
 
   useEffect(() => {
     if (!token) {
@@ -21,14 +25,11 @@ export const Products = ({items}) => {
     // eslint-disable-next-line 
   }, [token])
 
-    const {data, isLoading, isError, error } = useQuery({
-
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["productsfetch"],
     queryFn: () => dogFoodApi.getAllProducts(),
     enabled: (token !== undefined) && (token !== ''),
-  })  
-
-  console.log(items)
+  })
 
   if (isError) {
     return (
@@ -38,18 +39,30 @@ export const Products = ({items}) => {
 
   if (isLoading) return <Loader />
 
+  const filteredProducts =
+    data.products
+      .filter(i => i.name.toLowerCase().includes(searchFilter.toLowerCase()))
+      .map(p => ({
+        id: p._id,
+        ...p,
+        inCart: cart.some(i => i.id === p._id)
+      }))
+
   return (
     <div className={styles.products}>
-      {data.products.map(({ _id: id, ...restProduct }) => (
-        <ProductContainer
-          key={id}
-          id={id}
-          product={restProduct}
-        />
-      ))}
+      {filteredProducts
+        .map((product) => (
+          <ProductContainer
+            key={product.id}
+            id={product.id}
+            product={product}
+          />
+        ))}
     </div>
   )
 }
+
+
 
 
 export default Products

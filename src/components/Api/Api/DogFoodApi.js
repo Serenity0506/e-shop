@@ -9,15 +9,13 @@ class DogFoodApi {
     }
 
     getAuthorizationHeader() {
+        if (!this.token) throw new Error('Отсутствует токен');
+
         return `Bearer ${this.token}`;
     }
 
     setToken(token) {
         this.token = token;
-    }
-
-    checkToken() {
-        if (!this.token) throw new Error('Отсутствует токен');
     }
 
     async signIn(values) {
@@ -66,8 +64,6 @@ class DogFoodApi {
 
 
     async getAllProducts() {
-        this.checkToken();
-
         const res = await fetch(`${this.baseUrl}/products`, {
             headers: {
                 // authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2NmYjRmMDU5Yjk4YjAzOGY3N2FhOWEiLCJncm91cCI6InNtOSIsImlhdCI6MTY3NDU1NjcyNCwiZXhwIjoxNzA2MDkyNzI0fQ.wddeTXXHn6Q_YqChsYAmJJ9Jzk5pKgkZ62O_WiM9A1U',
@@ -85,20 +81,20 @@ class DogFoodApi {
           Попробуйте сделать запрос позже. Status: ${res.status}`)
         }
 
-        await this._sleep(1_000);
+        // await this._sleep(1_000);
 
         return res.json()
     }
 
 
-    async getProductsByIds(ids, token) {
-        this.checkToken(token);
-
-        return Promise.all(ids.map((id) => fetch(`${this.baseURL}/products/${id}`, {
-            headers: {
-                authorization: this.getAuthorizationHeader(token),
-            }
-        }).then((res) => res.json())));
+    async getProductsByIds(ids) {
+        return Promise.all(ids.map((id) =>
+            fetch(`${this.baseUrl}/products/${id}`, {
+                headers: {
+                    authorization: this.getAuthorizationHeader(),
+                }
+            }).then((res) => res.json())
+        ));
     }
 }
 
