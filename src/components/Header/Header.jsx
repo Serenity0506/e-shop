@@ -28,7 +28,6 @@ export const Header = () => {
     }
 
     const MenuBar = () => {
-        // if(!props.token) {
         if (!token) {
             return (
                 <Link to='/signin'>
@@ -60,7 +59,6 @@ export const Header = () => {
         )
     }
 
-    // const { token, setToken } = useAppContext()
 
     return (
         <div className={styles.header}>

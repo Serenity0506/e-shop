@@ -19,9 +19,7 @@ const userSlice = createSlice({
                 }
             },
         },
-        // logIn() {
 
-        // },
 
         logOut() {
             resetState()

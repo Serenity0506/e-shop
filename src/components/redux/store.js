@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { ESHOP_LS_KEY, ESHOP_CART_LS_KEY } from "./constants";
 import { getInitState } from "./initState";
 import { rootReducer } from "./rootReducer";
+import { dogFoodApi } from '../Api/Api/DogFoodApi'
 
 
 export const store = configureStore({
@@ -27,4 +28,8 @@ store.subscribe(() => {
             [currentState.user.id]: currentState.cart,
         }))
     }
+})
+
+store.subscribe(() => {
+    dogFoodApi.setToken(store.getState().user.token)
 })

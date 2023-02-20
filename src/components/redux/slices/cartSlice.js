@@ -75,15 +75,17 @@ const cartSlice = createSlice({
             })
         },
 
-        checkAllProducts(state, action) {
-            action.payload.forEach((id) => {
-                state[id].isChecked = true
+        checkAllP(state, action) {
+            state.map((product) => {
+                product.isChecked = true
+                return product
             })
         },
 
-        uncheckAllProducts(state, action) {
-            action.payload.forEach((id) => {
-                state[id].isChecked = false
+        uncheckAllP(state, action) {
+            state.map((product) => {
+                product.isChecked = false
+                return product
             })
         },
 
@@ -99,8 +101,8 @@ export const {
     removeProduct,
     checkProduct,
     uncheckProduct,
-    checkAllProducts,
-    uncheckAllProducts,
+    checkAllP,
+    uncheckAllP,
     incrementCount,
     decrementCount,
     clearCart
@@ -109,9 +111,3 @@ export const {
 export const getCartSelector = (state) => state.cart
 export const cartReducer = cartSlice.reducer
 
-
-
-// deleteCheckedFromCart(state, action) {
-//     action.payload.forEach((id) => {
-//       delete state[id]
-//     })

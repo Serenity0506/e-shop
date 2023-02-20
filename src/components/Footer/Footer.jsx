@@ -27,7 +27,7 @@ export const Footer = () => {
            </div>
            <div className="footer_left">
                 <NavLink to="/products" className='footer_link'>Каталог</NavLink>
-                <NavLink to="/sales" className='footer_link'>Акции</NavLink>
+                {/* <NavLink to="/sales" className='footer_link'>Акции</NavLink> */}
                 <NavLink to="/payment" className='footer_link'>Оплата и доставка</NavLink>
                 <NavLink to="/contacts" className='footer_link'>Контакты</NavLink>
             </div>
@@ -39,4 +39,3 @@ export const Footer = () => {
     )
 }
 
-// {({ isActive}) => classNames({[headerStyles.activeLink]: isActive})}

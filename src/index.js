@@ -10,7 +10,6 @@ import { Payment } from './components/Payment/Payment';
 import { Main } from './components/Main/Main';
 import { SignIn } from './components/Sign/SignIn/SignIn';
 import { SignUp } from './components/Sign/SignUp/SignUp';
-import { AppContextProvider } from './Context/AppContextProvider';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Cart } from './components/Cart/Cart';
 import { store } from './components/redux/store';
@@ -62,18 +61,23 @@ const router = createBrowserRouter([
 ])
 
 const queryClient = new QueryClient(
+  {
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  }
 ) //хранилище данных с сетевыми запросами
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <AppContextProvider>
-        <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
-        </QueryClientProvider>
-      </AppContextProvider>
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
