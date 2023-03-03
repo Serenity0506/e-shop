@@ -10,6 +10,8 @@
     margin: 0;
 }
 
+
+
 p {
     margin: 0;
 }
@@ -25,7 +27,7 @@ p {
 }
 
 .picture {
-    width: auto;
+    width: 100%;
 }
 
 .button {

@@ -1,0 +1,99 @@
+.container_detail {
+    width: 80vw;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+    background-color: rgba(180, 151, 231, 0.3);
+    border-radius: 10px;
+    color: black;
+    margin: 20px auto;
+}
+
+.flex {
+    display: grid;
+    grid-template-columns: 100px 1fr 150px;
+}
+
+.flex_row {
+    display: flex;
+    justify-content: left;
+    font-style: italic;
+    font-size: 14px;
+    margin-bottom: 15px;
+
+}
+
+.textarea {
+    width: 100%;
+    border: 0;
+    font-size: 15px;
+    font-family: Inter;
+    margin: 0 0 10px 0;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.button_add {
+    background-color: rgb(138, 57, 214);
+    color: white;
+    border-radius: 5px;
+    border-style: none;
+    min-width: 150px;
+    height: 30px;
+    padding: 5px;
+    margin-top: 5px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.button_in_cart {
+    background-color: rgb(222, 2, 215);
+}
+
+.button_big {
+    background-color: rgb(138, 57, 214);
+    color: white;
+    border-radius: 5px;
+    border-style: none;
+    min-width: 150px;
+    min-height: 30px;
+    padding: 5px;
+    margin-top: 5px;
+    font-size: 15px;
+    cursor: pointer;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.picture {
+    width: 100%;
+}
+
+.name {
+    margin: 0 0 0 20px;
+    font-size: 30px;
+    font-weight: 600;
+}
+
+.stock {
+    margin: 10px 0 0 20px;
+
+}
+
+.button {
+    border: 0;
+    padding: 0;
+    text-align:center;
+    align-self: start;
+    /* background-color: rgba(180, 151, 231, 0.1); */
+    font-size: 50px;
+
+    /* background-color: none; */
+}
+
+.reviews {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(180, 151, 231);
+}
