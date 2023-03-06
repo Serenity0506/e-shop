@@ -11,11 +11,11 @@ const favoritesSlice = createSlice({
       if (state.some((i) => i.id === id)) return
 
       state.push({
-        id: action.payload,
+        _id: action.payload,
       })
     },
     removeFavorite(state, action) {
-      return state.filter((product) => product.id !== action.payload)
+      return state.filter((product) => product._id !== action.payload)
     },
   },
 })

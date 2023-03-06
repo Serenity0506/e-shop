@@ -12,6 +12,20 @@ export const initState = {
     search: "",
   },
   favorites: [],
+  mutateProduct: {
+    isOpen: false,
+    isEdit: true,
+    product: {
+      _id: 0,
+      pictures: "",
+      price: "",
+      wight: "",
+      name: "",
+      discount: 0,
+      stock: 0,
+      description: "",
+    },
+  },
 }
 
 export const getInitState = () => {

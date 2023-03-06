@@ -66,6 +66,11 @@
     margin-top: 10px;
 }
 
+.button_disable {
+    background-color: gray;
+    pointer-events: none;
+}
+
 .picture {
     width: 100%;
 }

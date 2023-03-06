@@ -1,17 +1,19 @@
 import { useQuery } from "@tanstack/react-query"
 import { useSelector } from "react-redux"
 import { dogFoodApi } from "../Api/Api/DogFoodApi"
+import { GridOfProducts } from "../GridOfProducts/GridOfProducts"
 import { Loader } from "../Loader/Loader"
-import ProductContainer from "../Products/ProductContainer"
+import { getCartSelector } from "../redux/slices/cartSlice"
 import { getFavoritesSelector } from "../redux/slices/favoritesSlice"
 import styles from "./Favorites.module.css"
 
-export const Favorites = (product) => {
+export const Favorites = () => {
   const favorites = useSelector(getFavoritesSelector)
+  const cart = useSelector(getCartSelector)
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["favoritesfetch"],
-    queryFn: () => dogFoodApi.getProductsByIds(favorites.map((f) => f.id)),
+    queryKey: ["favoritesfetch", favorites],
+    queryFn: () => dogFoodApi.getProductsByIds(favorites.map((f) => f._id)),
   })
 
   if (isError) {
@@ -20,13 +22,19 @@ export const Favorites = (product) => {
 
   if (isLoading) return <Loader />
 
+  const dataWithId = data.map((p) => ({
+    id: p._id,
+    inCart: cart.some((cp) => cp._id === p._id),
+    ...p,
+  }))
+
   return (
     <>
-      <div className={styles.container_detail}>
-        {data.map((product) => (
-          <ProductContainer key={product._id} product={product} />
-        ))}
-      </div>
+      {dataWithId.length ? (
+        <GridOfProducts products={dataWithId} />
+      ) : (
+        <p>Любимых продуктов нет :(</p>
+      )}
     </>
   )
 }

@@ -4,55 +4,55 @@ import { Footer } from "./components/Footer/Footer"
 import { Outlet } from "react-router-dom"
 import { useState } from "react"
 import { AddProductPopup } from "./components/Popup/AddProductPopup"
-import { EditProductPopup } from "./components/Popup/EditProductPopup"
-import { ListOfUserAddProducts } from "./components/Popup/ListOfUserAddProducts"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { dogFoodApi } from "./components/Api/Api/DogFoodApi"
+import { useSelector } from "react-redux"
+import { getMutatePopupStateSelector } from "./components/redux/slices/mutateProductSlice"
 
 function App() {
   const [isAddProductPopupOpen, setAddProductPopupOpen] = useState(false)
-  const [isEditProductPopupOpen, setEditProductPopupOpen] = useState(false)
-  const [isListOfUserAddProducts, setListOfUserAddProducts] = useState(false)
 
-  const closeAllPopups = () => {
-    setAddProductPopupOpen(false)
-    setEditProductPopupOpen(false)
-    setListOfUserAddProducts(false)
-  }
+  const queryClient = useQueryClient()
+  const popupState = useSelector(getMutatePopupStateSelector)
 
-  const handleAddProductPopup = () => {
-    console.log(1)
-  }
+  const {
+    // data: addProductData,
+    // error: addProductError,
+    mutate: addProductMutation,
+    // isLoading: addProductIsLoading,
+    // isError: addProductIsError,
+  } = useMutation({
+    mutationFn: (product) => dogFoodApi.addProduct(product),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["productsfetch"] })
+    },
+  })
 
-  const handleEditProductPopup = () => {
-    console.log(1)
-  }
+  const editProduct = useMutation({
+    mutationFn: (product) => dogFoodApi.editProduct(product),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["productsfetch"] })
+      queryClient.invalidateQueries({ queryKey: ["productfetch"] })
+    },
+  })
 
-  const handleProductDelete = () => {
-    console.log(1)
+  const handleProductMutate = (product) => {
+    if (popupState.isEdit) {
+      editProduct.mutate(product)
+    } else {
+      addProductMutation(product)
+    }
   }
 
   return (
     <div>
       <Header />
-      <Outlet
-        onAddProductPopupOpen={() => setAddProductPopupOpen(true)}
-        onEditProductPopupOpen={() => setEditProductPopupOpen(true)}
-        onListOfUserAddProducts={() => setListOfUserAddProducts(true)}
-        onCardDelete={handleProductDelete}
-      />
+      <Outlet />
 
       <AddProductPopup
         isOpen={isAddProductPopupOpen}
-        onAddProductPopup={handleAddProductPopup}
-        onClose={closeAllPopups}
-      />
-      <EditProductPopup
-        isOpen={isEditProductPopupOpen}
-        onEditProductPopup={handleEditProductPopup}
-        onClose={closeAllPopups}
-      />
-      <ListOfUserAddProducts
-        isOpen={isListOfUserAddProducts}
-        onClose={closeAllPopups}
+        setIsOpen={setAddProductPopupOpen}
+        onProductMutate={handleProductMutate}
       />
 
       <Footer />

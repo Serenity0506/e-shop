@@ -8,8 +8,19 @@
     border-radius: 10px;
     color: black;
     margin: 0;
+    box-sizing: border-box;
+    height: 100%;
+    position: relative;
 }
 
+.like {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
+    padding: 3px;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
 
 
 p {
@@ -20,6 +31,16 @@ p {
     color: rgb(61, 34, 108);
     font-size: 30px;
     font-weight: 900;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.price_discount {
+    font-size: 20px;
+    color: darkgrey;
+    text-decoration: line-through;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .wight {
@@ -41,6 +62,7 @@ p {
     margin-top: 5px;
     font-size: 15px;
     cursor: pointer;
+    margin-top: auto;
 }
 
 .button_in_cart {
