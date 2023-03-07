@@ -10,7 +10,11 @@ import {
   removeFavorite,
   getFavoritesSelector,
 } from "../redux/slices/favoritesSlice"
-import { addProduct, getCartSelector } from "../redux/slices/cartSlice"
+import {
+  addProduct,
+  getCartSelector,
+  removeProduct,
+} from "../redux/slices/cartSlice"
 
 import styles from "./ProductDetails.module.css"
 import { useState } from "react"
@@ -48,6 +52,8 @@ export const ProductDetails = (props) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["productfetch"] })
       queryClient.invalidateQueries({ queryKey: ["productsfetch"] })
+      dispatch(removeFavorite(productId))
+      dispatch(removeProduct(productId))
       navigate("/products")
     },
   })
