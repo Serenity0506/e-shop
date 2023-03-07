@@ -1,16 +1,14 @@
 import { useSelector } from "react-redux"
 import { getTokenSelector } from "../redux/slices/userSlice"
 import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { router } from "../.."
 
 export const useAuthRedirect = () => {
   const token = useSelector(getTokenSelector)
-  const navigate = useNavigate()
 
   useEffect(() => {
     if (!token) {
-      navigate("/signin")
+      router.navigate("/signin")
     }
-    // eslint-disable-next-line
   }, [token])
 }

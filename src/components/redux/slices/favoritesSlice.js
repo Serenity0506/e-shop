@@ -17,10 +17,17 @@ const favoritesSlice = createSlice({
     removeFavorite(state, action) {
       return state.filter((product) => product._id !== action.payload)
     },
+    clearFavorites() {
+      return []
+    },
+    setFavorites(state, action) {
+      return action.payload
+    },
   },
 })
 
 export const getFavoritesSelector = (state) => state.favorites
 
-export const { addFavorite, removeFavorite } = favoritesSlice.actions
+export const { addFavorite, removeFavorite, clearFavorites, setFavorites } =
+  favoritesSlice.actions
 export const favoritesReducer = favoritesSlice.reducer

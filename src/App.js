@@ -15,13 +15,7 @@ function App() {
   const queryClient = useQueryClient()
   const popupState = useSelector(getMutatePopupStateSelector)
 
-  const {
-    // data: addProductData,
-    // error: addProductError,
-    mutate: addProductMutation,
-    // isLoading: addProductIsLoading,
-    // isError: addProductIsError,
-  } = useMutation({
+  const { mutate: addProductMutation } = useMutation({
     mutationFn: (product) => dogFoodApi.addProduct(product),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["productsfetch"] })

@@ -3,6 +3,7 @@ import { getUserSelector } from "../redux/slices/userSlice"
 import { useProducts } from "../../hooks/useProducts"
 import { Loader } from "../Loader/Loader"
 import { GridOfProducts } from "../GridOfProducts/GridOfProducts"
+import styles from "./User.module.css"
 
 export const ListOfUserAddProducts = () => {
   const user = useSelector(getUserSelector)
@@ -16,9 +17,9 @@ export const ListOfUserAddProducts = () => {
   const myProducts = data.filter((p) => p.author._id === user.id)
 
   return (
-    <>
+    <div className={styles.flex}>
       {myProducts.length === 0 && <p>Продуктов нет :(</p>}
       <GridOfProducts products={myProducts} />
-    </>
+    </div>
   )
 }

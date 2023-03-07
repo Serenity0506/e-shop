@@ -5,6 +5,14 @@ const cartSlice = createSlice({
   name: "cart",
   initialState: initState.cart,
   reducers: {
+    // loadCartFromLocalStorage(state, action) {
+    //   const cartsFromLS = window.localStorage.getItem(ESHOP_CART_LS_KEY)
+    //   const parsedCartsFromLS = cartsFromLS ? JSON.parse(cartsFromLS) : {} //если карты есть, то парсим, если нет, то пустой объект
+    //   const currentUserSavedCart = parsedCartsFromLS[action.payload] || []
+
+    //   return currentUserSavedCart
+    // },
+
     addProduct(state, action) {
       const id = action.payload
 
@@ -90,6 +98,10 @@ const cartSlice = createSlice({
     clearCart() {
       return []
     },
+
+    setCart(state, action) {
+      return action.payload
+    },
   },
 })
 
@@ -103,6 +115,8 @@ export const {
   incrementCount,
   decrementCount,
   clearCart,
+  setCart,
+  // loadCartFromLocalStorage,
 } = cartSlice.actions
 
 export const getCartSelector = (state) => state.cart

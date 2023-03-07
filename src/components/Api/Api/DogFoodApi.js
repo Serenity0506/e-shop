@@ -188,6 +188,28 @@ class DogFoodApi {
 
     return res.json()
   }
+
+  async deleteComment(data) {
+    const { productId, reviewId } = data
+    const res = await fetch(
+      `${this.baseUrl}/products/review/${productId}/${reviewId}`,
+      {
+        method: "DELETE",
+        headers: {
+          authorization: this.getAuthorizationHeader(),
+          "Content-Type": "application/json",
+        },
+      }
+    )
+
+    if (res.status >= 400) {
+      throw new Error(
+        `Произошла ошибка при удалении комментария. Status: ${res.status}`
+      )
+    }
+
+    return res.json()
+  }
 }
 
 export const dogFoodApi = new DogFoodApi({

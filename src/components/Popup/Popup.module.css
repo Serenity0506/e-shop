@@ -2,17 +2,29 @@ dialog::backdrop {
     background-color: rgba(0,0,0,0.7);
 }
 
+.dialog {
+    border-radius: 10px;
+    border: none;
+}
+
+h1 {
+    margin-top: 10px;
+    color: rgb(76, 14, 135);
+
+}
+
 .form {
-    width: 60vw;
+    width: 40vw;
     height: auto;
     display: flex;
     flex-direction: column;
+    border: 0;
 }
 
 .form_input {
     border: 1px solid rgb(138, 57, 214);
 
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .form_error {
@@ -29,5 +41,11 @@ dialog::backdrop {
     padding: 5px;
     font-size: 15px;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 20px;
+}
+
+.header {
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 15px;
 }

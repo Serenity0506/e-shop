@@ -1,13 +1,15 @@
 import styles from "./User.module.css"
 import icon from "./images/edit-icon.png"
-import { useOutletContext } from "react-router-dom"
+// import { useOutletContext } from "react-router-dom"
 import { ListOfUserAddProducts } from "./ListOfUserAddProducts"
 import { useUser } from "../../hooks/useUser"
 import { Loader } from "../Loader/Loader"
 import { useDispatch } from "react-redux"
 import { openAddNewProductPopup } from "../redux/slices/mutateProductSlice"
+import { useAuthRedirect } from "../HOC/useAuthRedirect"
 
 export const User = (props) => {
+  useAuthRedirect()
   const dispatch = useDispatch()
 
   // const { openAddNewProductPopup } = useOutletContext()
@@ -15,10 +17,6 @@ export const User = (props) => {
 
   const onEditAvatar = () => {
     console.log(1)
-
-    // const openPopup() {
-
-    // }
   }
 
   function UserInfo() {
@@ -32,7 +30,7 @@ export const User = (props) => {
         <div className={styles.profile__avatar} onClick={onEditAvatar}>
           <img
             className={styles.profile__avatar_image}
-            src={user.avatar}
+            src='https://avatars.dzeninfra.ru/get-zen_doc/3300410/pub_5ed956352a8eb97ae43cb4a9_5ed956e57a19f02c0f3e34ef/scale_1200'
             alt='Аватар'
           />
           <div className={styles.profile__avatar_overlay}>

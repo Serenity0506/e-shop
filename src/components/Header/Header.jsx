@@ -10,9 +10,10 @@ import briefcase from "./images/briefcase.png"
 import { Link, useNavigate } from "react-router-dom"
 import { getTokenSelector } from "../redux/slices/userSlice"
 import { useDispatch, useSelector } from "react-redux"
-import { getCartSelector } from "../redux/slices/cartSlice"
+import { clearCart, getCartSelector } from "../redux/slices/cartSlice"
 import { logOut } from "../redux/slices/userSlice"
 import { Search } from "../Search/Search"
+import { clearFavorites } from "../redux/slices/favoritesSlice"
 
 export const Header = () => {
   //вытаскиваем из редакса токен и корзину
@@ -24,6 +25,8 @@ export const Header = () => {
 
   function handleLogOut() {
     dispatch(logOut())
+    dispatch(clearCart())
+    dispatch(clearFavorites())
     navigate("/")
   }
 

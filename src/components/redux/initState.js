@@ -16,7 +16,6 @@ export const initState = {
     isOpen: false,
     isEdit: true,
     product: {
-      _id: 0,
       pictures: "",
       price: "",
       wight: "",

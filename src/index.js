@@ -18,7 +18,7 @@ import { ProductDetails } from "./components/ProductDetails/ProductDetails"
 import { User } from "./components/User/User"
 import { Favorites } from "./components/Favorites/Favorites"
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,

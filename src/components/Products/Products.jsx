@@ -1,32 +1,24 @@
 import { Field, Form, Formik } from "formik"
-import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
-import { useNavigate, useSearchParams } from "react-router-dom"
 import { useProducts } from "../../hooks/useProducts"
 import { useProductsSearchParams } from "../../hooks/useProductsSearchParams"
 import { GridOfProducts } from "../GridOfProducts/GridOfProducts"
 import { Loader } from "../Loader/Loader"
 import { getSearchSelector } from "../redux/slices/filterSlice"
 import { getTokenSelector } from "../redux/slices/userSlice"
+import { useAuthRedirect } from "../HOC/useAuthRedirect"
 
 import styles from "./Products.module.css"
 
 export const Products = () => {
-  const navigate = useNavigate()
-  const token = useSelector(getTokenSelector)
   const searchFilter = useSelector(getSearchSelector)
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/signin")
-    }
-    // eslint-disable-next-line
-  }, [token])
-
   const [sort, setSort] = useProductsSearchParams()
+  const token = useSelector(getTokenSelector)
+
+  useAuthRedirect()
 
   const { data, isLoading, isError, error } = useProducts({
-    isEnabled: token !== undefined && token !== "",
+    isEnabled: !!token,
   })
 
   if (isError) {

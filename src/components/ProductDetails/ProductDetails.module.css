@@ -15,6 +15,16 @@
     grid-template-columns: 100px 1fr 150px;
 }
 
+.flex_simple {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(180, 151, 231);
+    align-items: flex-end;
+    margin-top: 10px;
+    height: 40px;
+
+}
+
 .flex_row {
     display: flex;
     justify-content: left;
@@ -93,12 +103,37 @@
     align-self: start;
     /* background-color: rgba(180, 151, 231, 0.1); */
     font-size: 50px;
+    cursor: pointer;
+
 
     /* background-color: none; */
 }
 
+.button_small {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 15px;
+    border: 0;
+    padding: 3px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.button_small_dis {
+    width: 30px;
+    height: 30px;
+    opacity: 50%;
+    border-radius: 15px;
+    border: 0;
+    padding: 3px;
+    font-size: 20px;
+    cursor: none;
+    visibility: hidden;
+}
+
 .reviews {
-    margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid rgba(180, 151, 231);
+
 }

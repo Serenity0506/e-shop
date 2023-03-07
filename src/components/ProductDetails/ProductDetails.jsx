@@ -10,7 +10,7 @@ import {
   removeFavorite,
   getFavoritesSelector,
 } from "../redux/slices/favoritesSlice"
-import { addProduct } from "../redux/slices/cartSlice"
+import { addProduct, getCartSelector } from "../redux/slices/cartSlice"
 
 import styles from "./ProductDetails.module.css"
 import { useState } from "react"
@@ -23,6 +23,7 @@ export const ProductDetails = (props) => {
   const dispatch = useDispatch()
   const favorites = useSelector(getFavoritesSelector)
   const user = useSelector(getUserSelector)
+  const cart = useSelector(getCartSelector)
   const queryClient = useQueryClient()
   const navigate = useNavigate()
 
@@ -51,6 +52,14 @@ export const ProductDetails = (props) => {
     },
   })
 
+  const deleteComment = useMutation({
+    mutationFn: (reviewId) => dogFoodApi.deleteComment({ productId, reviewId }), //анонимная функция
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["productfetch"] })
+      queryClient.invalidateQueries({ queryKey: ["productsfetch"] })
+    },
+  })
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["productfetch"],
     queryFn: () => dogFoodApi.getProductsByIds([productId]),
@@ -63,10 +72,17 @@ export const ProductDetails = (props) => {
 
   if (isLoading || deleteProduct.isLoading) return <Loader />
 
+  const [productRaw] = data
+
   const product = {
-    ...data[0],
-    isFavorite: favorites.some((f) => f._id === data[0]._id),
-    isMine: data[0].author._id === user.id,
+    ...productRaw,
+    inCart: cart.some((i) => i._id === productRaw._id),
+    isFavorite: favorites.some((f) => f._id === productRaw._id),
+    isMine: productRaw.author._id === user.id,
+    reviews: productRaw.reviews.map((r) => ({
+      ...r,
+      isMine: r.author === user.id,
+    })),
   }
 
   function handleFavorite() {
@@ -90,6 +106,10 @@ export const ProductDetails = (props) => {
 
   const handleEditProduct = () => {
     dispatch(openEditProductPopup(product))
+  }
+
+  const handleCommentDelete = (reviewId) => {
+    deleteComment.mutate(reviewId)
   }
 
   return (
@@ -154,7 +174,17 @@ export const ProductDetails = (props) => {
       </form>
       <ul className={styles.reviews}>
         {product.reviews.map((r) => (
-          <li key={r._id}>{r.text}</li>
+          <li key={r._id}>
+            {r.text}
+            <button
+              className={`${styles.button_small} ${
+                !r.isMine ? styles.button_small_dis : ""
+              }`}
+              onClick={() => handleCommentDelete(r._id)}
+            >
+              ☠️
+            </button>
+          </li>
         ))}
       </ul>
     </div>

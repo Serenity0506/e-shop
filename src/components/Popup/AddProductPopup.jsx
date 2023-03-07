@@ -33,81 +33,109 @@ export const AddProductPopup = ({ onProductMutate }) => {
     onProductMutate(values)
   }
 
-  const initialValues = {
-    pictures:
-      "https://avatars.mds.yandex.net/i?id=754692ec6c8aa9d57aceef81c3014916abf5a2ee-9311909-images-thumbs&n=13",
-    price: "1000",
-    wight: "1",
-    name: "драгонфрут",
-    discount: 10,
-    stock: 3,
-    description: "Тестовое описание",
+  const initialValue = {
+    pictures: "",
+    price: "",
+    wight: "",
+    name: "",
+    discount: "",
+    stock: "",
+    description: "",
   }
 
   return (
-    <dialog ref={dialogRef} onClose={handlePopupClose}>
+    <dialog
+      ref={dialogRef}
+      onClose={handlePopupClose}
+      className={styles.dialog}
+    >
       <h1>{isEdit ? "Редактирование товара" : "Добавление нового товара"}</h1>
       <Formik
         initialValues={{ ...product }}
+        // initialValues={initialValue}
         enableReinitialize={true}
         validationSchema={createSigninValidationSchema}
         onSubmit={handleFormSubmit}
       >
         {(props) => (
           <Form className={`${styles.form}`} onSubmit={props.handleSubmit}>
+            <label htmlFor='pictures' className={styles.header}>
+              Cсылка на картинку:
+            </label>
             <Field
               className={styles.form_input}
               name='pictures'
               type='url'
-              placeholder='ссылка на картинку'
+              placeholder='вставьте ссылку'
             />
             <ErrorMessage className={styles.form_error} name='pictures' />
 
+            <label htmlFor='price' className={styles.header}>
+              Цена товара:
+            </label>
             <Field
               className={styles.form_input}
               name='price'
               type='number'
-              placeholder='цена'
+              placeholder='введите цену'
             />
             <ErrorMessage className={styles.form_error} name='price' />
 
+            <label htmlFor='wight' className={styles.header}>
+              Вес товара:
+            </label>
             <Field
               className={styles.form_input}
               name='wight'
+              id='wight'
               type='text'
-              placeholder='вес'
+              placeholder='Задайте вес'
+              label='вес'
             />
             <ErrorMessage className={styles.form_error} name='wight' />
 
+            <label htmlFor='name' className={styles.header}>
+              Название продукта:
+            </label>
             <Field
               className={styles.form_input}
               name='name'
               type='text'
-              placeholder='название продукта'
+              placeholder='Введите название продукта'
             />
             <ErrorMessage className={styles.form_error} name='name' />
 
+            <label htmlFor='discount' className={styles.header}>
+              Скидка на товар:
+            </label>
             <Field
               className={styles.form_input}
               name='discount'
               type='number'
-              placeholder='скидка'
+              placeholder='Введите скидку'
+              label='скидка'
             />
             <ErrorMessage className={styles.form_error} name='discount' />
 
+            <label htmlFor='stock' className={styles.header}>
+              Количество:
+            </label>
             <Field
               className={styles.form_input}
               name='stock'
               type='number'
-              placeholder='количество'
+              placeholder='Введите количество товаров'
             />
             <ErrorMessage className={styles.form_error} name='stock' />
 
+            <label htmlFor='description' className={styles.header}>
+              Описание товара:
+            </label>
             <Field
               className={styles.form_input}
               name='description'
               type='text'
-              placeholder='краткое описание'
+              placeholder='Введите краткое описание товара'
             />
             <ErrorMessage className={styles.form_error} name='description' />
 
