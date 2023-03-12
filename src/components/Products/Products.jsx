@@ -1,21 +1,19 @@
-import { Field, Form, Formik } from "formik"
-import { useSelector } from "react-redux"
-import { useProducts } from "../../hooks/useProducts"
-import { useProductsSearchParams } from "../../hooks/useProductsSearchParams"
-import { GridOfProducts } from "../GridOfProducts/GridOfProducts"
-import { Loader } from "../Loader/Loader"
-import { getSearchSelector } from "../redux/slices/filterSlice"
-import { getTokenSelector } from "../redux/slices/userSlice"
-import { useAuthRedirect } from "../HOC/useAuthRedirect"
+import { Field, Form, Formik } from 'formik'
+import { useSelector } from 'react-redux'
+import { useProducts } from '../../hooks/useProducts'
+import { useProductsSearchParams } from '../../hooks/useProductsSearchParams'
+import { GridOfProducts } from '../GridOfProducts/GridOfProducts'
+import { Loader } from '../Loader/Loader'
+import { getTokenSelector } from '../redux/slices/userSlice'
+import { useAuthRedirect } from '../HOC/useAuthRedirect'
 
-import styles from "./Products.module.css"
+import styles from './Products.module.css'
 
 export const Products = () => {
-  const searchFilter = useSelector(getSearchSelector)
-  const [sort, setSort] = useProductsSearchParams()
-  const token = useSelector(getTokenSelector)
-
   useAuthRedirect()
+
+  const [searchParams, setSearchParams] = useProductsSearchParams()
+  const token = useSelector(getTokenSelector)
 
   const { data, isLoading, isError, error } = useProducts({
     isEnabled: !!token,
@@ -28,21 +26,21 @@ export const Products = () => {
   if (isLoading) return <Loader />
 
   const handleSortChange = (e) => {
-    const [sortBy, sortOrder] = e.target.value.split("|")
+    const [sort, order] = e.target.value.split('|')
 
-    setSort({
-      sortBy: sortBy,
-      sortOrder: sortOrder || "",
+    setSearchParams({
+      ...searchParams,
+      sort,
+      order: order || '',
     })
   }
 
+  const sortResult = searchParams.order === 'desc' ? -1 : 1
+
   const filteredProducts = data
-    .filter((i) => i.name.toLowerCase().includes(searchFilter.toLowerCase()))
+    .filter((i) => i.name.toLowerCase().includes(searchParams.search.toLowerCase()))
     .map((p) => ({ ...p, likes_cnt: p.likes.length }))
-    .sort((a, b) => {
-      const sortResult = sort.sortOrder === "desc" ? -1 : 1
-      return a[sort.sortBy] > b[sort.sortBy] ? sortResult : -sortResult
-    })
+    .sort((a, b) => a[searchParams.sort] > b[searchParams.sort] ? sortResult : -sortResult)
 
   return (
     <>
@@ -50,7 +48,7 @@ export const Products = () => {
         <p>Сортировка:</p>
         <Formik
           initialValues={{
-            sort: "",
+            sort: '',
           }}
         >
           <Form>
@@ -59,11 +57,10 @@ export const Products = () => {
               name='sort'
               as='select'
               onChange={handleSortChange}
-              value={`${sort.sortBy}${
-                sort.sortOrder ? "|" + sort.sortOrder : ""
-              }`}
+              value={`${searchParams.sort}${searchParams.order ? '|' + searchParams.order : ''
+                }`}
             >
-              <option value='default'>По умолчанию</option>
+              <option value=''>По умолчанию</option>
               <option value='price|asc'>По цене (↑)</option>
               <option value='price|desc'>По цене (↓)</option>
               <option value='discount|asc'>По скидке (↑)</option>

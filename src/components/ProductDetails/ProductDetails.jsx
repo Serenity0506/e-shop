@@ -67,7 +67,7 @@ export const ProductDetails = (props) => {
   })
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["productfetch"],
+    queryKey: ["productfetch", productId],
     queryFn: () => dogFoodApi.getProductsByIds([productId]),
     enabled: !deleteProduct.isLoading,
   })
